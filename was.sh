@@ -30,7 +30,7 @@ trap 'ctrlc 0' INT
 
 # Load mac80211_hwsim
 echo -e "$INFO Checking for mac80211_hwsim presence"
-sudo lsmod | grep "mac80211_hwsim" && echo -n || bash -c "echo -e \"$WARN mac80211_hwsim not loaded. Loading...\"; sudo modprobe mac80211_hwsim"
+sudo lsmod | grep "mac80211_hwsim" && echo -n || bash -c "echo -e \"$WARN mac80211_hwsim not loaded. Loading...\"; sudo modprobe mac80211_hwsim radios=3"
 echo -e "$INFO Loaded mac80211_hwsim"
 
 #################
@@ -38,6 +38,7 @@ echo -e "$INFO Loaded mac80211_hwsim"
 ######################################
                                      #
 IN_INTERFACE=wlan0                   #
+CLIENT_INTERFACE=wlan1               #
 SSID=SusCorp                         #
 CHANNEL=1                            #
 HW_MODE=g                            #
@@ -80,5 +81,7 @@ echo -e "$INFO Started dnsmasq"
 
 # Hang forever
 sleep 0.5
+echo -e "$INFO Use wlan2 as your non-monitor mode interface and hwsim0 as your monitor mode interface"
+echo -e "$INFO First, wait til $CLIENT_INTERFACE is up with the 'ip a s $CLIENT_INTERFACE'"
 echo -e "$INFO Press Ctrl+C to quit"
 tail -f /dev/null

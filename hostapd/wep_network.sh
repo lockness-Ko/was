@@ -7,18 +7,18 @@ channel=$CHANNEL
 
 hw_mode=$HW_MODE
 
-# WPA3 PSK with CCMP
-wpa=2
-wpa_key_mgmt=SAE
-rsn_pairwise=CCMP
-wpa_passphrase=$WPA_PASSPHRASE
+# WEP network
+auth_algs=1
+wep_default_key=0
+wep_key0=badbeefcaf
 EOF)" &
 
 sudo bash -c "wpa_supplicant -i $CLIENT_INTERFACE -c <(cat << EOF
 network={
   ssid=\"$SSID\"
 
-  key_mgmt=SAE
-  sae_password=\"$WPA_PASSPHRASE\"
+  key_mgmt=NONE
+  wep_tx_keyidx=0
+  wep_key0=badbeefcaf
 }
 EOF)" | grep -v "kernel reports" &

@@ -13,3 +13,5 @@ wpa_key_mgmt=WPA-PSK
 rsn_pairwise=CCMP
 wpa_passphrase=$WPA_PASSPHRASE
 EOF)" &
+
+sudo bash -c "wpa_supplicant -i $CLIENT_INTERFACE -c <(wpa_passphrase $SSID $WPA_PASSPHRASE)" | grep -v "kernel reports" &
