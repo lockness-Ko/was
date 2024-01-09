@@ -26,6 +26,8 @@ You'll need:
 - hostapd
 - dnsmasq
 - iproute2
+- iw
+- macchanger
 - mac80211_hwsim kernel module
 
 ## Usage
