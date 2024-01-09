@@ -18,8 +18,8 @@ Wi-Fi attack sim is me being annoyed at no PEN-210 labs so I made my own with ba
 
 ## Installation
 
-> **NOTE**
-> **THIS COUNTS ON GUESSING AND HOPING THAT YOU DO NOT HAVE ANY OTHER INTERFACES THAT CALL THEMSELVES wlanN**
+> **NOTE**:
+> **THIS COUNTS ON GUESSING AND HOPING THAT YOU DO NOT HAVE ANY OTHER INTERFACES THAT CALL THEMSELVES wlanN.**
 > run this in a VM
 
 You'll need:
