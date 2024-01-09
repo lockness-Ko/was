@@ -99,7 +99,7 @@ echo -e "$INFO Started dnsmasq"
 
 # Hang forever
 sleep 0.5
-echo -e "$INFO Use wlan2 as your non-monitor mode interface and hwsim0 as your monitor mode interface"
+echo -e "$INFO Use wlan2 as your attacker mode interface"
 echo -e "$INFO First, wait til $CLIENT_INTERFACE is up with the 'ip a s $CLIENT_INTERFACE'"
 echo -e "$INFO Press Ctrl+C to quit"
 tail -f /dev/null
