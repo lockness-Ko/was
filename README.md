@@ -30,4 +30,16 @@ You'll need:
 
 ## Usage
 
-Run WAS with the script
+Run `was.sh` with the script with the name of a script in `hostapd/`.
+
+Open network
+```bash
+./was.sh open_network
+```
+
+WPA2 network
+```bash
+./was wpa2_network
+```
+
+you get the idea...

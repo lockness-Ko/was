@@ -12,6 +12,6 @@ wpa=2
 wpa_key_mgmt=WPA-PSK
 rsn_pairwise=CCMP
 wpa_passphrase=$WPA_PASSPHRASE
-EOF)" &
+EOF)" 2>&1 | while read line; do echo -e "$HOSTAPD $line"; done &
 
-sudo bash -c "wpa_supplicant -i $CLIENT_INTERFACE -c <(wpa_passphrase $SSID $WPA_PASSPHRASE)" | grep -v "kernel reports" &
+sudo bash -c "wpa_supplicant -i $CLIENT_INTERFACE -c <(wpa_passphrase $SSID $WPA_PASSPHRASE)" 2>&1 | while read line; do echo -e "$WPA_SUPPLICANT $line"; done | grep -v "kernel reports" &

@@ -1,5 +1,8 @@
 #! /bin/bash
 
+DNSMASQ="\x1b[1;44m[DNSMASQ]\x1b[0m"
+WPA_SUPPLICANT="\x1b[1;41m[CLIENT]\x1b[0m"
+HOSTAPD="\x1b[1;42m[HOSTAPD]\x1b[0m"
 INFO="\x1b[1;36m[WAS - Info]\x1b[0m"
 WARN="\x1b[1;33m[WAS - Warn]\x1b[0m"
 ERR="\x1b[1;31m[WAS - Err]\x1b[0m"
@@ -39,6 +42,7 @@ echo -e "$INFO Loaded mac80211_hwsim"
                                      #
 IN_INTERFACE=wlan0                   #
 CLIENT_INTERFACE=wlan1               #
+ATTACK_INTERFACE=wlan2               #
 SSID=SusCorp                         #
 CHANNEL=1                            #
 HW_MODE=g                            #
@@ -52,6 +56,20 @@ DNS_SERVER=10.0.0.1                  #
                                      #
 ######################################
 
+# Randomize mac addresses
+sudo ip link set $IN_INTERFACE down
+sudo macchanger -r $IN_INTERFACE
+sudo ip link set $IN_INTERFACE up
+
+sudo ip link set $CLIENT_INTERFACE down
+sudo macchanger -r $CLIENT_INTERFACE
+sudo ip link set $CLIENT_INTERFACE up
+
+sudo ip link set $ATTACK_INTERFACE down
+sudo macchanger -r $ATTACK_INTERFACE
+sudo ip link set $ATTACK_INTERFACE up
+
+# Set AP ip address
 sudo ip link set $IN_INTERFACE up
 sudo ip addr add $LISTEN_ADDRESS/$CIDR dev $IN_INTERFACE
 echo -e "$INFO Set interface $IN_INTERFACE up:"
@@ -76,7 +94,7 @@ dhcp-lease-max=$DHCP_LEASE_TIME
 dhcp-option=option:router,$LISTEN_ADDRESS
 dhcp-authoritative
 server=$DNS_SERVER
-EOF) -d" & 2>/dev/null
+EOF) -d" 2>&1 | while read line; do echo -e "$DNSMASQ $line"; done &
 echo -e "$INFO Started dnsmasq"
 
 # Hang forever

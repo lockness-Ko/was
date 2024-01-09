@@ -8,17 +8,9 @@ channel=$CHANNEL
 hw_mode=$HW_MODE
 
 # WEP network
-auth_algs=1
+auth_algs=2
 wep_default_key=0
 wep_key0=badbeefcaf
-EOF)" &
+EOF)" 2>&1 | while read line; do echo -e "$HOSTAPD $line"; done &
 
-sudo bash -c "wpa_supplicant -i $CLIENT_INTERFACE -c <(cat << EOF
-network={
-  ssid=\"$SSID\"
-
-  key_mgmt=NONE
-  wep_tx_keyidx=0
-  wep_key0=badbeefcaf
-}
-EOF)" | grep -v "kernel reports" &
+sudo bash -c "iw dev $CLIENT_INTERFACE connect $SSID key 0:badbeefcaf" 2>&1 | while read line; do echo -e "$WPA_SUPPLICANT $line"; done | grep -v "kernel reports" &

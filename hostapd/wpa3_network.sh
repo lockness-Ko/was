@@ -12,7 +12,7 @@ wpa=2
 wpa_key_mgmt=SAE
 rsn_pairwise=CCMP
 wpa_passphrase=$WPA_PASSPHRASE
-EOF)" &
+EOF)" 2>&1 | while read line; do echo -e "$HOSTAPD $line"; done &
 
 sudo bash -c "wpa_supplicant -i $CLIENT_INTERFACE -c <(cat << EOF
 network={
@@ -21,4 +21,4 @@ network={
   key_mgmt=SAE
   sae_password=\"$WPA_PASSPHRASE\"
 }
-EOF)" | grep -v "kernel reports" &
+EOF)" | grep -v "kernel reports" 2>&1 | while read line; do echo -e "$WPA_SUPPLICANT $line"; done | grep -v "kernel reports" &
