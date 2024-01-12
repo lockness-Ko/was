@@ -9,7 +9,7 @@ Practice wireless attacks on your own machine, without the need for an external 
 - [x] WPA2-PSK network
 - [x] WPA3-PSK network
 - [ ] WEP network / weird errors here, someone help pls
-- [ ] WPS network
+- [x] WPS network
 - [ ] WPA2-MGT network
 
 ## Why
