@@ -33,7 +33,7 @@ trap 'ctrlc 0' INT
 
 # Load mac80211_hwsim
 echo -e "$INFO Checking for mac80211_hwsim presence"
-sudo lsmod | grep "mac80211_hwsim" && echo -n || bash -c "echo -e \"$WARN mac80211_hwsim not loaded. Loading...\"; sudo modprobe mac80211_hwsim radios=3"
+sudo lsmod | grep "mac80211_hwsim" && echo -n || bash -c "echo -e \"$WARN mac80211_hwsim not loaded. Loading...\"; sudo modprobe mac80211_hwsim radios=4"
 echo -e "$INFO Loaded mac80211_hwsim"
 
 #################
