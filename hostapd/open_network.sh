@@ -1,5 +1,9 @@
 #! /bin/bash
 
+SSID=was-open                        #
+CHANNEL=1                            #
+HW_MODE=g                            #
+
 sudo bash -c "hostapd <(cat << EOF
 interface=$IN_INTERFACE
 ssid=$SSID

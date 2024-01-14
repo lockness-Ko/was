@@ -1,5 +1,9 @@
 #! /bin/bash
 
+SSID=was-enterprise                  #
+CHANNEL=11                           #
+HW_MODE=g                            #
+
 # Configure CA cert
 CA_CERT_CN=AU
 CA_CERT_STATE=NSW

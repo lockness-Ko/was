@@ -1,5 +1,10 @@
 #! /bin/bash
 
+SSID=was-wpa3                        #
+CHANNEL=1                            #
+HW_MODE=g                            #
+WPA_PASSPHRASE=password              #
+
 sudo bash -c "hostapd <(cat << EOF
 interface=$IN_INTERFACE
 ssid=$SSID

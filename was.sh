@@ -43,10 +43,6 @@ echo -e "$INFO Loaded mac80211_hwsim"
 IN_INTERFACE=wlan0                   #
 CLIENT_INTERFACE=wlan1               #
 ATTACK_INTERFACE=wlan2               #
-SSID=SusCorp                         #
-CHANNEL=1                            #
-HW_MODE=g                            #
-WPA_PASSPHRASE=password              #
                                      #
 LISTEN_ADDRESS=10.0.0.1              #
 CIDR=24                              #
