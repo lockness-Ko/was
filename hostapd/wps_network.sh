@@ -5,7 +5,7 @@ CHANNEL=1                            #
 HW_MODE=g                            #
 WPA_PASSPHRASE=password              #
 
-sudo bash -c "hostapd <(cat << EOF
+sudo ip netns exec $NETNS bash -c "hostapd <(cat << EOF
 interface=$IN_INTERFACE
 ssid=$SSID
 channel=$CHANNEL
@@ -29,6 +29,7 @@ pbc_in_m1=1
 ap_pin=12345670
 #upnp_iface=br-lan
 eap_server=1
-EOF)" 2>&1 | while read line; do echo -e "$HOSTAPD $line"; done &
+EOF
+)" 2>&1 | while read line; do echo -e "$HOSTAPD $line"; done &
 
-sudo bash -c "wpa_supplicant -i $CLIENT_INTERFACE -c <(wpa_passphrase $SSID $WPA_PASSPHRASE)" 2>&1 | while read line; do echo -e "$WPA_SUPPLICANT $line"; done | grep -v "kernel reports" &
+sudo ip netns exec $CLIENT_NETNS bash -c "wpa_supplicant -i $CLIENT_INTERFACE -c <(wpa_passphrase $SSID $WPA_PASSPHRASE)" 2>&1 | while read line; do echo -e "$WPA_SUPPLICANT $line"; done | grep -v "kernel reports" &

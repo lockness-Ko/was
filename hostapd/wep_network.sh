@@ -4,7 +4,7 @@ SSID=was-wep                         #
 CHANNEL=1                            #
 HW_MODE=g                            #
 
-sudo bash -c "hostapd <(cat << EOF
+sudo ip netns exec $NETNS bash -c "hostapd <(cat << EOF
 interface=$IN_INTERFACE
 ssid=$SSID
 channel=$CHANNEL
@@ -15,6 +15,7 @@ hw_mode=$HW_MODE
 auth_algs=2
 wep_default_key=0
 wep_key0=badbeefcaf
-EOF)" 2>&1 | while read line; do echo -e "$HOSTAPD $line"; done &
+EOF
+)" 2>&1 | while read line; do echo -e "$HOSTAPD $line"; done &
 
-sudo bash -c "iw dev $CLIENT_INTERFACE connect $SSID key 0:badbeefcaf" 2>&1 | while read line; do echo -e "$WPA_SUPPLICANT $line"; done | grep -v "kernel reports" &
+sudo ip netns exec $CLIENT_NETNS bash -c "iw dev $CLIENT_INTERFACE connect $SSID key 0:badbeefcaf" 2>&1 | while read line; do echo -e "$WPA_SUPPLICANT $line"; done | grep -v "kernel reports" &
