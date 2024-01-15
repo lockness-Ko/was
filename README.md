@@ -51,3 +51,19 @@ WPA2 network
 ```
 
 you get the idea...
+
+## Other stuff
+
+In the `adhoc/` folder there are scripts to generate any type of AP you want, as well as any type of client you want (without a config file).
+
+This is nowhere near usable
+
+Here's an example mgt network
+```bash
+./eap_ap.sh --wpa2 --eap --channel 11 --ssid was-enterprise --hwmode g --ca '/C=AU/ST=NSW/L=Sydney/O=Internet Widgets Pty./CN=ca@internetwidgets.com.au' --server '/C=AU/ST=NSW/L=Sydney/O=Internet Widgets Pty./CN=server@internetwidgets.com.au'
+```
+
+And here's an example of an open network
+```bash
+./open_ap.sh --channel 1 --hwmode g --ssid was-open
+```

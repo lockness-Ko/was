@@ -73,10 +73,14 @@ EOF
 )" 2>&1 | while read line; do echo -e "$HOSTAPD $line"; done &
 
 sudo ip netns exec $CLIENT_NETNS bash -c "wpa_supplicant -i $CLIENT_INTERFACE -c <(cat << EOF
+fast_reauth=0
+okc=0
+
 network={
   ssid=\"$SSID\"
 
   scan_ssid=1
+  proactive_key_caching=0
   key_mgmt=WPA-EAP
   identity=\"peter@internetwidgets.com.au\"
   password=\"iloveyou\"
