@@ -13,10 +13,11 @@ channel=$CHANNEL
 hw_mode=$HW_MODE
 
 # WPA2 PSK with CCMP
-wpa=3
+wpa=2
 wpa_key_mgmt=WPA-PSK
-wpa_pairwise=CCMP TKIP
+wpa_pairwise=CCMP
 wpa_passphrase=$WPA_PASSPHRASE
+
 
 wps_state=2
 ap_setup_locked=0
