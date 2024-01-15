@@ -34,6 +34,14 @@ ctrlc() {
 INTERFACES=$(sudo airmon-ng | grep mac80211_hwsim| awk -F ' ' '{print $2}')
 PHYS=$(sudo airmon-ng | grep mac80211_hwsim| awk -F ' ' '{print $1}')
 
+# Randomize mac addresses
+echo $INTERFACES | tr ' ' '\n' | while read line; do
+	echo -e $INFO Randomizing $line mac address
+	sudo ip link set $line down
+	sudo macchanger -r $line
+	sudo ip link set $line up
+done
+
 get_interface() {
 	echo $INTERFACES | tr ' ' '\n' | head -n $1 | tail -n 1
 }

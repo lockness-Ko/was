@@ -8,14 +8,6 @@ echo -e "$INFO Checking for mac80211_hwsim presence"
 sudo lsmod | grep "mac80211_hwsim" && echo -n || bash -c "echo -e \"$WARN mac80211_hwsim not loaded. Loading...\"; sudo modprobe mac80211_hwsim radios=4"
 echo -e "$INFO Loaded mac80211_hwsim"
 
-# Randomize mac addresses
-echo $INTERFACES | tr ' ' '\n' | while read line; do
-	echo -e $INFO Randomizing $line mac address
-	sudo ip link set $line down
-	sudo macchanger -r $line
-	sudo ip link set $line up
-done
-
 . ./scripts/functions.sh
 trap 'error ${LINENO}' ERR
 trap 'ctrlc 0' INT
