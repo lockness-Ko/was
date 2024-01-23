@@ -28,4 +28,4 @@ network={
   sae_password=\"$WPA_PASSPHRASE\"
 }
 EOF
-)" | grep -v "kernel reports" 2>&1 | while read line; do echo -e "$WPA_SUPPLICANT $line"; done | grep -v "kernel reports" &
+)" 2>&1 | while read line; do echo -e "$WPA_SUPPLICANT $line"; done | grep -v "kernel reports" &
