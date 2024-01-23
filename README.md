@@ -10,7 +10,7 @@ Practice wireless attacks on your own machine, without the need for an external 
 - [x] Open network
 - [x] WPA2-PSK network
 - [x] WPA3-PSK network
-- [ ] WEP network / weird errors here, someone help pls
+- [x] WEP network / NOTE: YOU NEED TO COMPILE A CUSTOM HOSTAPD AND WPA_SUPPLICANT. SEE BELOW.
 - [ ] WPS network
 - [x] WPA2-MGT network
 
@@ -31,6 +31,27 @@ You'll need:
 - iw
 - macchanger
 - mac80211_hwsim kernel module
+- git
+
+For the WEP network, you'll need to get your hands dirty with some compilation!
+
+I can't be bothered to write up docs for this, so here is just a bunch of commands. If you don't follow them exactly it wont work!
+
+```bash
+cd /opt
+git clone --depth=1 https://w1.fi/hostap.git
+cd hostap/hostapd
+cp defconfig .config
+sed -i 's/#CONFIG_WEP=y/CONFIG_WEP=y/' .config
+make -j $(nproc)
+
+cd ../wpa_supplicant
+cp defconfig .config
+sed -i 's/#CONFIG_WEP=y/CONFIG_WEP=y/' .config
+make -j $(nproc)
+```
+
+Once you've run the above commands everything should be good to go :)
 
 ## Walkthroughs
 
